@@ -47,3 +47,33 @@ else Console.WriteLine("Значение элемента: " + rez);
 
 // Задача 3. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
 
+
+int stolb = 4;
+int strok = 4;
+int[,] massiv = new int[stolb, strok];
+int[] srarifm = new int[stolb];
+int sum = 0;
+
+for (int i = 0; i < stolb; i++)
+{
+    for (int j = 0; j < strok; j++)
+    {
+        massiv[i, j] = new Random().Next(1, 5);
+        Console.Write(massiv[i, j] + " ");
+    }
+    Console.WriteLine();
+}
+
+int c = 0;
+for (int i = 0; i < stolb; i++)
+{
+
+    for (int j = 0; j < strok; j++)
+    {
+        srarifm[c] = massiv[j, c] + srarifm[c];
+    }
+    Console.WriteLine($"Среднее арифметическое столбца {i + 1}: " + srarifm[c]);
+    Console.WriteLine();
+    c++;
+}
+
