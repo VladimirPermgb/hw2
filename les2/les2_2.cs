@@ -72,7 +72,7 @@ for (int i = 0; i < stolb; i++)
     {
         srarifm[c] = massiv[j, c] + srarifm[c];
     }
-    Console.WriteLine($"Среднее арифметическое столбца {i + 1}: " + srarifm[c]);
+    Console.WriteLine($"Среднее арифметическое столбца {i + 1}: " + srarifm[c]/stolb);
     Console.WriteLine();
     c++;
 }
