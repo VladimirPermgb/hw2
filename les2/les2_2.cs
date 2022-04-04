@@ -21,6 +21,29 @@ for (int i = 0; i < stolb; i++)
 
 // Задача 2. Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет.
 
+Console.WriteLine("Введите позицию в строке");
+int x = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Введите позицию в столбце");
+int y = Convert.ToInt32(Console.ReadLine());
+int[,] massiv = new int [10, 10];
+int rez = -1;
+
+for (int i = 0; i < 10; i++)
+{
+    for (int j = 0; j < 10; j++)
+    {
+       massiv[i, j] = new Random().Next(100, 390);
+       Console.Write(massiv[i, j] + " ");
+
+       if (i == x-1 & j == y-1) rez = massiv [i, j];
+       
+    }
+    Console.WriteLine();
+}
+
+
+if (rez == -1) Console.WriteLine("Вне диапазона");
+else Console.WriteLine("Значение элемента: " + rez);
 
 // Задача 3. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
 
