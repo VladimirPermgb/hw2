@@ -123,7 +123,7 @@ int[,,] CreateMass(int row, int col, int layer)
     return array;
 }
 
-void PrintKub(int[,,] array)
+void PrintMass(int[,,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
@@ -143,4 +143,4 @@ int row = 3;
 int col = 3;
 int layer = 3;
 int [,,] array123 = CreateMass (row,col, layer);
-PrintKub (array123);
+PrintMass (array123);
