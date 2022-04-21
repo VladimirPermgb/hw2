@@ -1,66 +1,97 @@
-// Задача 3: Заданы 2 массива: info и data. В массиве data хранятся двоичные представления 
-// нескольких чисел (без разделителя). В массиве info хранится информация о количестве бит, которые
-// занимают числа из массива data. Напишите программу, которая составит массив десятичных представлений
-// чисел массива data с учётом информации из массива info.
-// Пример:
-// входные данные:
-// data = {0, 1, 1, 1, 1, 0, 0, 0, 1}
-// info = {2, 3, 3, 1}
-// выходные данные:
-// 1, 7, 0, 1
+// Напишите программу
+// data {0, 1, 1, 1, 1, 0, 0, 0, 1} j смещает от начала массива количество элементов чтобы взять следующий элемент согласно info [i]
+// info {2, 3, 3, 1}
+// array {1, 7, 0, 1}
+// Дополнить возможность ввода массивов info и data пользователем. 
+// Проработать возможные частные случаи несоответствия данных в этих массивах.
 
-int BinaryToDecimal(int[] array, int sum = 0)
+int [] ArrayInfo (int length)
 {
-    Array.Reverse(array);
-    for (int i = 0; i < array.Length; i++)
-        sum += array[i] * (int)Math.Pow(2,i);
+    int [] aInfo = new int [length];
 
-    return sum;
+    for (int i = 0; i < aInfo.Length; i++)
+    {
+        aInfo[i] = Convert.ToInt32(Console.ReadLine());
+    }
+    for (int i = 0; i < aInfo.Length; i++)
+    {
+        Console.Write(aInfo[i] + " ");
+    }
+    Console.WriteLine();
+    return aInfo;
 }
 
-int[] PrintDataByInfo(int[] data, int[] info)
+
+int [] ArrayData (int [] aInfo)
 {
-    int sum = 0;
-    for (int i = 0; i < info.Length; i++)
-        sum += info[i];
-
-    int[] dec = new int[info.Length];
-
-    if (sum == data.Length)
+    int length = 0;
+    for (int i = 0; i < aInfo.Length; i++)
     {
-        Console.WriteLine("Input: ");
-        Console.Write("data = {");
-        for (int j = 0; j < data.Length-1; j++)
-            Console.Write($"{data[j]}, ");
-        Console.WriteLine($"{data[data.Length-1]}" + "}");
+        length = length + aInfo [i];
+    }
+    Console.Write ($"Введите {length} элементы массива data ");
+    Console.WriteLine();
+    int [] aData = new int [length];
 
-        Console.Write("info = {");
-        for (int j = 0; j < info.Length-1; j++)
-            Console.Write($"{info[j]}, ");
-        Console.WriteLine($"{info[info.Length-1]}" + "}");
-
-        for (int i = info.Length - 1; i >= 0; i--)
+    for (int i = 0; i < aData.Length; i++)
+    {
+        aData[i] = Convert.ToInt32(Console.ReadLine());
+        if (aData[i] > 1)
         {
-            dec[i] = BinaryToDecimal(data.ToList().GetRange(data.Length - info[i], info[i]).ToArray());
-            data = data.ToList().GetRange(0, data.Length-info[i]).ToArray();
+            Console.Write ($"Введены некорректные значения массива data ");
+            i--;
         }
     }
-    else Console.WriteLine("info и data не согласованы");
-
-    return dec;
+    
+    for (int i = 0; i < aData.Length; i++)
+    {
+        Console.Write(aData[i] + " ");
+    }
+    Console.WriteLine();
+    return aData;
 }
 
-void PrintArray(int[] array)
+
+int [] ExtractData (int [] data, int [] info)
 {
-    Console.WriteLine("Output: ");
-    for (int i = 0; i < array.Length-1; i++)
-        Console.Write($"{array[i]}, ");
-    Console.WriteLine($"{array[array.Length-1]}");
+    int [] array = new int [info.Length];
+    int j = 0;
+    for (int i = 0; i < info.Length; i++)
+    {
+        if (j+info[i]>data.Length) 
+        {
+            Console.WriteLine ("Не хватает данных");
+            return array;
+        }
+               
+        for (int k = 0; k < info[i]; k++)
+        {
+           array[i] = array[i] + data[j]*(int)Math.Pow(2,info[i]-k-1);
+           j++;
+        } 
+    }
+    if (j<data.Length) 
+    {
+        Console.WriteLine ("Данных больше, чем необходимо");
+    }
+    return array;
 }
 
+void PrintExtractData (int [] array)
+{
+    for (int i = 0; i < array.Length; i++)
+    {
+        Console.Write(array[i]+ " ");
+    }
+    Console.WriteLine();
+}
 
-Console.Clear();
+Console.Write ("Введите размер массива info ");
+int lengthInfo = Convert.ToInt32(Console.ReadLine());
 
-int[] data = {0, 1, 1, 1, 1, 0, 0, 0, 1, 1},
-      info = {2, 3, 3, 2};     
-PrintArray(PrintDataByInfo(data, info));
+
+int [] info1 = ArrayInfo (lengthInfo);
+int [] data1 = ArrayData (info1);
+
+int [] array1 = ExtractData (data1, info1);
+PrintExtractData (array1);
